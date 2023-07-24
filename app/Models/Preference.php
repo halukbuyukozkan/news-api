@@ -11,4 +11,10 @@ class Preference extends Model
 
     protected $fillable = ['source_id','name'];
 
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'preference_user');
+    }
+
 }

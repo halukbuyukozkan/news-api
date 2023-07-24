@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Preference;
 use Illuminate\Http\Request;
 
 class PreferenceController extends Controller
@@ -11,7 +12,9 @@ class PreferenceController extends Controller
      */
     public function index()
     {
-        //
+        $preferences = Preference::all();
+
+        return response()->json($preferences);
     }
 
     /**

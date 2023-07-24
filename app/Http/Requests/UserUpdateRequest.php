@@ -24,6 +24,8 @@ class UserUpdateRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'sometimes|required|string|email|max:255|unique:users,email,' . $this->user->id,
+            'preferences' => 'sometimes|required|array',
+            'preferences.*' => 'sometimes|required|integer|exists:preferences,id',
         ];
     }
 }

@@ -37,10 +37,10 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, User $user)
     {
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-        ]);
+
+        $user->update($request->validated());
+
+        $user->preferences()->sync($request->preferences);
 
         return response()->json([
             'message' => 'User updated successfully',
