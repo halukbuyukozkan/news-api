@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ApiService;
 use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class NewsController extends Controller
@@ -15,17 +16,28 @@ class NewsController extends Controller
     public function index()
     {
         // Get auth user for their preferences
-        $user_preference = Auth::user();
+        $user_preferences = Auth::user()->preferences;
 
         $apiService = new ApiService();
 
-        
         $BBC_articles = $apiService->getDataBBC();
         $Bloomberg_articles = $apiService->getDataBloomberg();
         $CNN_articles = $apiService->getDataCNN();
 
-        $news = $BBC_articles->merge($Bloomberg_articles)->merge($CNN_articles);
-
+        $news = new Collection();
+        
+        foreach ($user_preferences as $preference) {
+            if ($preference->id == 1) {
+                $news = $news->merge($BBC_articles);
+            }
+            if ($preference->id == 2) {
+                $news = $news->merge($CNN_articles);
+            }
+            if ($preference->id == 3) {
+                $news = $news->merge($Bloomberg_articles);
+            }
+        }
+        
         return $news;
     }
 
