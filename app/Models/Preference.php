@@ -9,6 +9,6 @@ class Preference extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['source_id','name'];
 
 }

@@ -65,6 +65,7 @@ class ApiService
     {
         $news = collect($articles['articles'])->map(function ($article){
             $news = new News();
+            $news->source_id = $article['source']['id'];
             $news->source = $article['source']['name'];
             $news->author = $article['author'];
             $news->title = $article['title'];

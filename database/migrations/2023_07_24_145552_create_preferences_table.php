@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('preferences', function (Blueprint $table) {
             $table->id();
-
+            
+            $table->string('source_id');
             $table->string('name');
 
             $table->timestamps();
